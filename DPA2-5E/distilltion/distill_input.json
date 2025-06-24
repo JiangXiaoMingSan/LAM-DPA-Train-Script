@@ -1,0 +1,544 @@
+{
+    "name": "distillation-only5-liquid-model",
+    "bohrium_config": {
+        "username": "xubiao1189@163.com",
+        "password": "Xb@472526399",
+        "project_id": 17005,
+        "_comment": "all"
+    },
+    "default_step_config": {
+        "template_config": {
+            "image": "registry.dp.tech/dptech/prod-11881/dpgen2-utils:1.2",
+            "_comment": "all"
+        },
+        "_comment": "all"
+    },
+    "step_configs": {
+        "run_train_config": {
+            "template_config": {
+                "image": "registry.dp.tech/dptech/dp/native/prod-12166/dp-v31-dpgen-cuda12-dpdata:dp-new",
+                "_comment": "all"
+            },
+            "executor": {
+                "type": "dispatcher",
+                "retry_on_submission_error": 10,
+                "image_pull_policy": "IfNotPresent",
+                "machine_dict": {
+                    "batch_type": "Bohrium",
+                    "context_type": "Bohrium",
+                    "remote_profile": {
+                        "input_data": {
+                            "job_type": "container",
+                            "platform": "ali",
+                            "scass_type": "1 * NVIDIA V100_32g"
+                        }
+                    }
+                }
+            },
+            "_comment": "all"
+        },
+        "run_explore_config": {
+            "template_config": {
+                "image": "registry.dp.tech/dptech/dp/native/prod-12166/dp-v31-dpgen-cuda12-dpdata:dp-new",
+                "_comment": "all"
+            },
+            "continue_on_success_ratio": 0.50,
+            "executor": {
+                "type": "dispatcher",
+                "retry_on_submission_error": 10,
+                "image_pull_policy": "IfNotPresent",
+                "machine_dict": {
+                    "batch_type": "Bohrium",
+                    "context_type": "Bohrium",
+                    "remote_profile": {
+                        "input_data": {
+                            "job_type": "container",
+                            "platform": "ali",
+                            "scass_type": "1 * NVIDIA V100_32g"
+                        }
+                    }
+                }
+            },
+            "template_slice_config": {
+                "group_size": 1,
+                "pool_size": 1
+            },
+            "_comment": "all"
+        },
+        "run_fp_config": {
+            "template_config": {
+                "image": "registry.dp.tech/dptech/dp/native/prod-12166/dp-v31-dpgen-cuda12-dpdata:dp-new",
+                "_comment": "all"
+            },
+            "continue_on_success_ratio": 0.80,
+            "executor": {
+                "type": "dispatcher",
+                "retry_on_submission_error": 10,
+                "image_pull_policy": "IfNotPresent",
+                "machine_dict": {
+                    "batch_type": "Bohrium",
+                    "context_type": "Bohrium",
+                    "remote_profile": {
+                        "input_data": {
+                            "job_type": "container",
+                            "platform": "ali",
+                            "scass_type": "c8_m32_1 * NVIDIA V100"
+                        }
+                    }
+                }
+            },
+            "template_slice_config": {
+                "group_size": 100,
+                "pool_size": 1
+            },
+            "_comment": "all"
+        },
+        "_comment": "all"
+    },
+    "upload_python_packages": [
+       "/root/deepmd-kit/lib/python3.12/site-packages/dpgen2",
+       "/root/deepmd-kit/lib/python3.12/site-packages/dpdata"
+    ],
+    "inputs": {
+  	"type_map": [
+            "V",
+            "Nb",
+            "Mo",
+            "Ta",
+            "W"
+        ],
+        "mixed_type": true,
+        "mass_map": [
+		   50.942,
+		   92.906,
+           95.950,
+           180.95,
+           183.84
+		   
+        ],
+        "init_data_prefix": null,
+	"init_data_sys": [
+"./train_predict/V10Nb11Mo11Ta11W11",
+"./train_predict/V10Nb17Mo14Ta9W4",
+"./train_predict/V10Nb5Mo19Ta14W6",
+"./train_predict/V10Nb6Mo17Ta17W4",
+"./train_predict/V10Nb7Mo8Ta8W21",
+"./train_predict/V11Nb10Mo11Ta11W11",
+"./train_predict/V11Nb11Mo11Ta10W11",
+"./train_predict/V11Nb11Mo11Ta11W10",
+"./train_predict/V11Nb11Mo11Ta11W11",
+"./train_predict/V11Nb11Mo14Ta9W9",
+"./train_predict/V11Nb26Mo10Ta5W2",
+"./train_predict/V11Nb2Mo16Ta11W14",
+"./train_predict/V11Nb3Mo16Ta5W19",
+"./train_predict/V12Nb12Mo12Ta12W6",
+"./train_predict/V12Nb12Mo12Ta6W12",
+"./train_predict/V12Nb12Mo2Ta12W16",
+"./train_predict/V12Nb12Mo6Ta12W12",
+"./train_predict/V12Nb15Mo6Ta16W5",
+"./train_predict/V12Nb1Mo14Ta14W13",
+"./train_predict/V12Nb6Mo12Ta12W12",
+"./train_predict/V12Nb8Mo2Ta15W17",
+"./train_predict/V12Nb9Mo16Ta13W4",
+"./train_predict/V13Nb13Mo14Ta9W5",
+"./train_predict/V13Nb13Mo8Ta2W18",
+"./train_predict/V13Nb14Mo13Ta7W7",
+"./train_predict/V13Nb14Mo14Ta7W6",
+"./train_predict/V13Nb14Mo6Ta14W7",
+"./train_predict/V13Nb14Mo7Ta13W7",
+"./train_predict/V13Nb14Mo7Ta14W6",
+"./train_predict/V13Nb14Mo7Ta6W14",
+"./train_predict/V13Nb15Mo6Ta13W7",
+"./train_predict/V13Nb16Mo10Ta9W6",
+"./train_predict/V13Nb2Mo19Ta6W14",
+"./train_predict/V13Nb3Mo7Ta16W15",
+"./train_predict/V13Nb5Mo1Ta23W12",
+"./train_predict/V13Nb6Mo14Ta14W7",
+"./train_predict/V13Nb7Mo14Ta7W13",
+"./train_predict/V13Nb7Mo7Ta13W14",
+"./train_predict/V14Nb12Mo15Ta12W1",
+"./train_predict/V14Nb13Mo14Ta7W6",
+"./train_predict/V14Nb14Mo13Ta5W8",
+"./train_predict/V14Nb14Mo6Ta7W13",
+"./train_predict/V14Nb14Mo7Ta7W12",
+"./train_predict/V14Nb15Mo14Ta2W9",
+"./train_predict/V14Nb1Mo16Ta5W18",
+"./train_predict/V14Nb3Mo1Ta15W21",
+"./train_predict/V14Nb6Mo13Ta7W14",
+"./train_predict/V14Nb6Mo14Ta14W6",
+"./train_predict/V14Nb6Mo6Ta14W14",
+"./train_predict/V14Nb7Mo13Ta13W7",
+"./train_predict/V14Nb7Mo13Ta6W14",
+"./train_predict/V14Nb7Mo6Ta14W13",
+"./train_predict/V14Nb8Mo14Ta13W5",
+"./train_predict/V15Nb10Mo12Ta12W5",
+"./train_predict/V15Nb11Mo8Ta4W16",
+"./train_predict/V15Nb12Mo9Ta4W14",
+"./train_predict/V15Nb14Mo15Ta4W6",
+"./train_predict/V15Nb15Mo8Ta1W15",
+"./train_predict/V15Nb15Mo8Ta8W8",
+"./train_predict/V15Nb1Mo15Ta8W15",
+"./train_predict/V15Nb1Mo8Ta15W15",
+"./train_predict/V15Nb22Mo5Ta5W7",
+"./train_predict/V15Nb3Mo17Ta1W18",
+"./train_predict/V15Nb5Mo8Ta25W1",
+"./train_predict/V15Nb7Mo3Ta18W11",
+"./train_predict/V15Nb8Mo15Ta15W1",
+"./train_predict/V15Nb8Mo15Ta8W8",
+"./train_predict/V15Nb8Mo1Ta15W15",
+"./train_predict/V15Nb8Mo8Ta15W8",
+"./train_predict/V15Nb8Mo8Ta8W15",
+"./train_predict/V16Nb14Mo11Ta5W8",
+"./train_predict/V16Nb17Mo2Ta13W6",
+"./train_predict/V16Nb18Mo1Ta4W15",
+"./train_predict/V16Nb7Mo9Ta20W2",
+"./train_predict/V16Nb9Mo17Ta8W4",
+"./train_predict/V17Nb10Mo5Ta16W6",
+"./train_predict/V17Nb10Mo7Ta8W12",
+"./train_predict/V17Nb11Mo4Ta17W5",
+"./train_predict/V17Nb12Mo15Ta9W1",
+"./train_predict/V17Nb14Mo8Ta7W8",
+"./train_predict/V17Nb1Mo2Ta16W18",
+"./train_predict/V17Nb6Mo4Ta21W6",
+"./train_predict/V18Nb7Mo14Ta6W9",
+"./train_predict/V18Nb7Mo6Ta8W15",
+"./train_predict/V18Nb9Mo6Ta8W13",
+"./train_predict/V18Nb9Mo9Ta9W9",
+"./train_predict/V1Nb11Mo17Ta15W10",
+"./train_predict/V1Nb15Mo15Ta13W10",
+"./train_predict/V1Nb15Mo15Ta8W15",
+"./train_predict/V1Nb15Mo8Ta15W15",
+"./train_predict/V1Nb18Mo6Ta4W25",
+"./train_predict/V1Nb21Mo2Ta20W10",
+"./train_predict/V1Nb31Mo6Ta1W15",
+"./train_predict/V1Nb7Mo19Ta18W9",
+"./train_predict/V20Nb6Mo9Ta14W5",
+"./train_predict/V20Nb8Mo13Ta4W9",
+"./train_predict/V21Nb4Mo8Ta5W16",
+"./train_predict/V22Nb7Mo4Ta3W18",
+"./train_predict/V22Nb9Mo12Ta9W2",
+"./train_predict/V23Nb24Mo25Ta25W26",
+"./train_predict/V23Nb24Mo26Ta25W26",
+"./train_predict/V23Nb24Mo26Ta26W26",
+"./train_predict/V23Nb25Mo25Ta25W25",
+"./train_predict/V23Nb25Mo26Ta25W24",
+"./train_predict/V24Nb24Mo26Ta26W26",
+"./train_predict/V24Nb25Mo25Ta24W25",
+"./train_predict/V24Nb25Mo25Ta25W24",
+"./train_predict/V24Nb25Mo25Ta25W26",
+"./train_predict/V24Nb25Mo26Ta25W24",
+"./train_predict/V24Nb25Mo26Ta25W25",
+"./train_predict/V24Nb25Mo26Ta26W25",
+"./train_predict/V24Nb25Mo27Ta25W26",
+"./train_predict/V24Nb26Mo25Ta26W25",
+"./train_predict/V25Nb1Mo24Ta3W1",
+"./train_predict/V25Nb24Mo25Ta25W24",
+"./train_predict/V25Nb24Mo25Ta25W26",
+"./train_predict/V25Nb24Mo25Ta26W25",
+"./train_predict/V25Nb24Mo25Ta26W26",
+"./train_predict/V25Nb24Mo26Ta25W25",
+"./train_predict/V25Nb24Mo26Ta26W26",
+"./train_predict/V25Nb25Mo23Ta25W25",
+"./train_predict/V25Nb25Mo24Ta24W25",
+"./train_predict/V25Nb25Mo24Ta25W24",
+"./train_predict/V25Nb25Mo24Ta25W27",
+"./train_predict/V25Nb25Mo25Ta23W25",
+"./train_predict/V25Nb25Mo25Ta24W25",
+"./train_predict/V25Nb25Mo25Ta24W27",
+"./train_predict/V25Nb25Mo25Ta25W24",
+"./train_predict/V25Nb25Mo25Ta25W25",
+"./train_predict/V25Nb25Mo25Ta25W26",
+"./train_predict/V25Nb25Mo25Ta25W27",
+"./train_predict/V25Nb25Mo25Ta26W24",
+"./train_predict/V25Nb25Mo25Ta26W25",
+"./train_predict/V25Nb25Mo25Ta26W26",
+"./train_predict/V25Nb25Mo26Ta24W25",
+"./train_predict/V25Nb25Mo26Ta25W25",
+"./train_predict/V25Nb25Mo26Ta25W26",
+"./train_predict/V25Nb25Mo26Ta26W24",
+"./train_predict/V25Nb25Mo26Ta26W25",
+"./train_predict/V25Nb25Mo27Ta25W24",
+"./train_predict/V25Nb26Mo24Ta25W23",
+"./train_predict/V25Nb26Mo24Ta25W24",
+"./train_predict/V25Nb26Mo24Ta25W26",
+"./train_predict/V25Nb26Mo25Ta24W25",
+"./train_predict/V25Nb26Mo25Ta25W24",
+"./train_predict/V25Nb26Mo25Ta25W25",
+"./train_predict/V25Nb26Mo25Ta25W26",
+"./train_predict/V25Nb26Mo25Ta26W24",
+"./train_predict/V25Nb26Mo25Ta26W25",
+"./train_predict/V25Nb26Mo25Ta26W26",
+"./train_predict/V25Nb26Mo26Ta24W25",
+"./train_predict/V25Nb26Mo26Ta24W26",
+"./train_predict/V25Nb26Mo26Ta25W25",
+"./train_predict/V25Nb26Mo26Ta25W26",
+"./train_predict/V25Nb26Mo26Ta26W24",
+"./train_predict/V25Nb26Mo26Ta26W26",
+"./train_predict/V25Nb27Mo25Ta24W25",
+"./train_predict/V25Nb8Mo4Ta6W11",
+"./train_predict/V26Nb24Mo25Ta25W25",
+"./train_predict/V26Nb24Mo25Ta25W26",
+"./train_predict/V26Nb24Mo25Ta26W25",
+"./train_predict/V26Nb24Mo26Ta26W25",
+"./train_predict/V26Nb24Mo27Ta25W25",
+"./train_predict/V26Nb25Mo24Ta25W26",
+"./train_predict/V26Nb25Mo25Ta24W25",
+"./train_predict/V26Nb25Mo25Ta24W27",
+"./train_predict/V26Nb25Mo25Ta25W25",
+"./train_predict/V26Nb25Mo25Ta25W26",
+"./train_predict/V26Nb25Mo25Ta26W26",
+"./train_predict/V26Nb25Mo26Ta25W24",
+"./train_predict/V26Nb25Mo26Ta25W25",
+"./train_predict/V26Nb25Mo26Ta26W24",
+"./train_predict/V26Nb25Mo26Ta26W26",
+"./train_predict/V26Nb25Mo27Ta24W25",
+"./train_predict/V26Nb26Mo24Ta25W25",
+"./train_predict/V26Nb26Mo24Ta26W25",
+"./train_predict/V26Nb26Mo25Ta24W25",
+"./train_predict/V26Nb26Mo25Ta25W24",
+"./train_predict/V26Nb26Mo25Ta25W25",
+"./train_predict/V26Nb26Mo25Ta26W25",
+"./train_predict/V26Nb26Mo25Ta26W26",
+"./train_predict/V26Nb26Mo26Ta25W26",
+"./train_predict/V26Nb26Mo26Ta26W25",
+"./train_predict/V26Nb26Mo26Ta26W26",
+"./train_predict/V26Nb26Mo26Ta26W27",
+"./train_predict/V26Nb26Mo26Ta26W28",
+"./train_predict/V26Nb26Mo26Ta27W26",
+"./train_predict/V26Nb26Mo26Ta27W27",
+"./train_predict/V26Nb26Mo26Ta28W26",
+"./train_predict/V26Nb26Mo27Ta26W26",
+"./train_predict/V26Nb26Mo28Ta26W26",
+"./train_predict/V26Nb27Mo26Ta26W26",
+"./train_predict/V26Nb27Mo26Ta27W26",
+"./train_predict/V26Nb27Mo27Ta26W26",
+"./train_predict/V26Nb27Mo27Ta26W27",
+"./train_predict/V26Nb27Mo27Ta27W26",
+"./train_predict/V26Nb28Mo26Ta26W26",
+"./train_predict/V27Nb24Mo25Ta25W26",
+"./train_predict/V27Nb25Mo25Ta25W25",
+"./train_predict/V27Nb25Mo26Ta24W25",
+"./train_predict/V27Nb25Mo27Ta27W27",
+"./train_predict/V27Nb26Mo26Ta26W26",
+"./train_predict/V27Nb26Mo26Ta26W27",
+"./train_predict/V27Nb26Mo26Ta27W26",
+"./train_predict/V27Nb26Mo26Ta27W27",
+"./train_predict/V27Nb27Mo26Ta27W26",
+"./train_predict/V27Nb27Mo27Ta26W26",
+"./train_predict/V27Nb29Mo29Ta29W29",
+"./train_predict/V27Nb6Mo19Ta1W1",
+"./train_predict/V27Nb8Mo14Ta3W2",
+"./train_predict/V28Nb26Mo26Ta26W26",
+"./train_predict/V28Nb28Mo29Ta29W29",
+"./train_predict/V28Nb29Mo28Ta29W29",
+"./train_predict/V29Nb28Mo28Ta29W29",
+"./train_predict/V29Nb28Mo29Ta28W29",
+"./train_predict/V29Nb29Mo27Ta29W29",
+"./train_predict/V29Nb29Mo28Ta28W29",
+"./train_predict/V29Nb29Mo29Ta28W28",
+"./train_predict/V2Nb11Mo10Ta22W9",
+"./train_predict/V2Nb14Mo2Ta11W25",
+"./train_predict/V2Nb9Mo21Ta13W9",
+"./train_predict/V3Nb24Mo15Ta9W3",
+"./train_predict/V4Nb11Mo12Ta14W13",
+"./train_predict/V4Nb19Mo4Ta5W22",
+"./train_predict/V4Nb1Mo19Ta23W7",
+"./train_predict/V4Nb21Mo7Ta15W7",
+"./train_predict/V4Nb22Mo1Ta8W19",
+"./train_predict/V4Nb22Mo8Ta11W9",
+"./train_predict/V5Nb11Mo1Ta14W23",
+"./train_predict/V5Nb14Mo12Ta11W12",
+"./train_predict/V5Nb15Mo3Ta16W15",
+"./train_predict/V5Nb17Mo12Ta10W10",
+"./train_predict/V5Nb17Mo8Ta22W2",
+"./train_predict/V5Nb20Mo6Ta2W21",
+"./train_predict/V5Nb31Mo31Ta31W31",
+"./train_predict/V5Nb31Mo31Ta32W31",
+"./train_predict/V5Nb32Mo31Ta31W31",
+"./train_predict/V5Nb32Mo32Ta31W32",
+"./train_predict/V5Nb32Mo32Ta32W31",
+"./train_predict/V5Nb32Mo32Ta32W32",
+"./train_predict/V5Nb33Mo31Ta31W31",
+"./train_predict/V5Nb6Mo13Ta15W15",
+"./train_predict/V5Nb6Mo8Ta18W17",
+"./train_predict/V5Nb9Mo14Ta5W21",
+"./train_predict/V6Nb12Mo12Ta12W12",
+"./train_predict/V6Nb13Mo14Ta14W7",
+"./train_predict/V6Nb14Mo14Ta7W13",
+"./train_predict/V6Nb14Mo18Ta8W8",
+"./train_predict/V6Nb14Mo6Ta14W14",
+"./train_predict/V6Nb16Mo16Ta2W14",
+"./train_predict/V6Nb1Mo6Ta12W29",
+"./train_predict/V6Nb2Mo26Ta12W8",
+"./train_predict/V6Nb31Mo31Ta32W31",
+"./train_predict/V6Nb5Mo16Ta19W8",
+"./train_predict/V6Nb5Mo17Ta15W11",
+"./train_predict/V6Nb6Mo13Ta19W10",
+"./train_predict/V7Nb11Mo6Ta19W11",
+"./train_predict/V7Nb13Mo13Ta7W14",
+"./train_predict/V7Nb13Mo14Ta13W7",
+"./train_predict/V7Nb13Mo7Ta13W14",
+"./train_predict/V7Nb14Mo13Ta6W14",
+"./train_predict/V7Nb14Mo14Ta13W6",
+"./train_predict/V7Nb14Mo6Ta13W14",
+"./train_predict/V7Nb1Mo10Ta24W12",
+"./train_predict/V7Nb1Mo25Ta9W12",
+"./train_predict/V7Nb4Mo29Ta11W3",
+"./train_predict/V7Nb5Mo14Ta14W14",
+"./train_predict/V7Nb6Mo14Ta13W14",
+"./train_predict/V7Nb6Mo5Ta18W18",
+"./train_predict/V7Nb7Mo14Ta12W14",
+"./train_predict/V8Nb11Mo11Ta9W15",
+"./train_predict/V8Nb15Mo15Ta15W1",
+"./train_predict/V8Nb15Mo15Ta1W15",
+"./train_predict/V8Nb15Mo15Ta8W8",
+"./train_predict/V8Nb15Mo8Ta15W8",
+"./train_predict/V8Nb15Mo8Ta8W15",
+"./train_predict/V8Nb17Mo12Ta11W6",
+"./train_predict/V8Nb1Mo15Ta15W15",
+"./train_predict/V8Nb3Mo9Ta22W12",
+"./train_predict/V8Nb4Mo9Ta20W13",
+"./train_predict/V8Nb8Mo15Ta15W8",
+"./train_predict/V8Nb8Mo15Ta8W15",
+"./train_predict/V8Nb8Mo8Ta15W15",
+"./train_predict/V9Nb18Mo9Ta9W9",
+"./train_predict/V9Nb9Mo18Ta9W9",
+"./train_predict/V9Nb9Mo9Ta18W9",
+"./train_predict/V9Nb9Mo9Ta9W18"
+
+
+
+
+],
+"valid_data_sys": [
+"./valid_predict/Mo10Nb11Ta10V11W11",
+"./valid_predict/Mo10Nb11Ta11V10W11",
+"./valid_predict/Mo10Nb11Ta11V11W11",
+"./valid_predict/Mo10Nb11Ta20V1W12",
+"./valid_predict/Mo10Nb24Ta8V5W7",
+"./valid_predict/Mo10Nb4Ta15V9W16",
+"./valid_predict/Mo10Nb4Ta1V15W24",
+"./valid_predict/Mo10Nb8Ta13V2W21",
+"./valid_predict/Mo11Nb10Ta10V11W11",
+"./valid_predict/Mo11Nb10Ta11V10W11",
+"./valid_predict/Mo11Nb11Ta11V11W9",
+"./valid_predict/Mo11Nb11Ta11V9W11",
+"./valid_predict/Mo11Nb7Ta20V6W10",
+"./valid_predict/Mo12Nb24Ta9V6W3",
+"./valid_predict/Mo13Nb2Ta10V15W14",
+"./valid_predict/Mo13Nb4Ta10V9W18",
+"./valid_predict/Mo14Nb9Ta13V8W10",
+"./valid_predict/Mo15Nb1Ta22V6W10",
+"./valid_predict/Mo16Nb12Ta20V5W1",
+"./valid_predict/Mo16Nb9Ta11V4W14",
+"./valid_predict/Mo17Nb5Ta11V18W3",
+"./valid_predict/Mo18Nb9Ta11V4W12",
+"./valid_predict/Mo22Nb7Ta11V6W8",
+"./valid_predict/Mo25Nb25Ta26V26W26",
+"./valid_predict/Mo25Nb26Ta25V26W26",
+"./valid_predict/Mo25Nb26Ta26V25W26",
+"./valid_predict/Mo25Nb26Ta26V26W25",
+"./valid_predict/Mo26Nb24Ta26V26W26",
+"./valid_predict/Mo26Nb25Ta25V26W26",
+"./valid_predict/Mo26Nb25Ta26V25W26",
+"./valid_predict/Mo26Nb26Ta26V25W25",
+"./valid_predict/Mo26Nb26Ta26V26W25",
+"./valid_predict/Mo26Nb26Ta26V26W26",
+"./valid_predict/Mo26Nb26Ta26V27W26",
+"./valid_predict/Mo26Nb26Ta26V27W27",
+"./valid_predict/Mo26Nb28Ta26V26W26",
+"./valid_predict/Mo27Nb26Ta26V26W26",
+"./valid_predict/Mo27Nb26Ta27V26W27",
+"./valid_predict/Mo27Nb26Ta27V27W26",
+"./valid_predict/Mo2Nb23Ta6V21W2",
+"./valid_predict/Mo6Nb13Ta7V14W14",
+"./valid_predict/Mo7Nb11Ta13V12W11",
+"./valid_predict/Mo9Nb11Ta11V11W11",
+"./valid_predict/Mo9Nb11Ta8V12W14"
+
+
+
+
+	],
+        "_comment": "all"
+    },
+    "train": {
+        "type": "dp",
+        "numb_models": 4,
+        "config": {
+	    "backend": "pytorch",
+	     "init_model_policy": "yes",
+            "init_model_old_ratio": 0.90,
+            "init_model_numb_steps": 1000000,
+            "init_model_start_lr": 1e-4,
+            "init_model_start_pref_e": 0.1,
+            "init_model_start_pref_f": 1000,
+
+            "_comment": "all"
+        },
+        "template_script": "train.json",
+        "_comment": "all"
+    },
+    "explore": {
+        "type": "lmp",
+        "config": {
+	   "command": "lmp -var restart 0"
+        },
+        "convergence": {
+            "type": "adaptive-lower",
+            "conv_tolerance": 0.01,
+            "_numb_candi_f": 200,
+            "rate_candi_f": 0.01,
+            "level_f_hi": 0.1,
+            "n_checked_steps": 2,
+            "_command": "all"
+        },
+        "max_numb_iter": 16,
+        "fatal_at_max": false,
+        "configuration_prefix": null,
+        "configurations": [
+            {
+                "type": "file",
+                "files": [
+                    "init"
+                ],
+                "fmt": "deepmd/npy/mixed"
+            }
+        ],
+        "stages": [
+            [
+                {
+                    "type": "lmp-template",
+                    "lmp": "template.lammps",
+                    "trj_freq": 20,
+                    "revisions": {
+                        "V_NSTEPS": [
+                            10000
+                        ],
+                        "V_TEMP": [
+			300,673,973,1273,1573,1873,2100
+			],
+                        "V_DUMPFREQ": [
+                            20
+                        ]
+                    },
+                    "sys_idx": [
+                        0
+                    ],
+                    "n_sample": 6 
+                }
+
+            ]
+        ],
+        "_comment": "all"
+    },
+    "fp": {
+        "type": "deepmd",
+        "task_max": 4000,
+        "run_config" : {
+            "teacher_model_path": "teacher_model.pt"
+        },
+        "inputs_config": {},
+        "_comment": "all"
+    }
+}
